@@ -14,11 +14,18 @@ export default function HomeScreen() {
           <Ionicons name="chatbubble-outline" size={24} color="black" />
         </View>
 
-        <View style={styles.tabSelector}>
-          <Text style={[styles.tabText, styles.activeTabText]}>Featured</Text>
-          <Text style={styles.tabText}>For You</Text>
+        <View style={styles.tabsContainer}>
+          <View style={styles.tabSelector}>
+            <View style={styles.tabItemWrapper}>
+              <Text style={[styles.tabText, styles.activeTabText]}>Featured</Text>
+              <View style={styles.activeTabIndicator} />
+            </View>
+            <View style={styles.tabItemWrapper}>
+              <Text style={styles.tabText}>For You</Text>
+            </View>
+          </View>
+          <View style={styles.tabBorder} />
         </View>
-        <View style={styles.activeTabIndicator} />
 
         <View style={styles.card}>
           <View style={styles.cardIcons}>
@@ -125,29 +132,27 @@ const styles = StyleSheet.create({
   },
   tabSelector: {
     flexDirection: 'row',
+    alignSelf: 'center',
     justifyContent: 'space-around',
-    marginTop: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
-    position: 'relative',
+    width: '74%',
   },
   tabText: {
-    paddingBottom: 10,
-    fontSize: 16,
-    color: '#6c757d',
+    fontSize: 14,
+    lineHeight: 16,
+    color: '#000',
+    fontFamily: 'Manrope-Regular',
   },
   activeTabText: {
-    color: '#007AFF',
-    fontWeight: '600',
+    color: '#1E22FB',
   },
   activeTabIndicator: {
     position: 'absolute',
     bottom: -1,
-    left: '12.5%',
-    width: '25%',
-    height: 2,
-    backgroundColor: '#007AFF',
+    zIndex: 1,
+    width: '120%',
     alignSelf: 'center',
+    height: 1,
+    backgroundColor: '#1E22FB',
   },
   card: {
     backgroundColor: 'white',
@@ -280,5 +285,20 @@ const styles = StyleSheet.create({
   },
   listItemCount: {
     alignItems: 'center',
+  },
+  tabBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#E0E0E0',
+    width: '100%',
+  },
+  tabsContainer: {
+    position: 'relative',
+    marginTop: 20,
+    width: '110%',
+    alignSelf: 'center',
+  },
+  tabItemWrapper: {
+    position: 'relative',
+    paddingBottom: 10,
   },
 });
