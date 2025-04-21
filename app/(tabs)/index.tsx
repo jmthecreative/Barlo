@@ -6,27 +6,27 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.outerContainer}>
-      <ThemedView style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.profilePicPlaceholder} />
-          <Text style={styles.logo}>Barlo</Text>
-          <Ionicons name="chatbubble-outline" size={24} color="black" />
-        </View>
+    <ThemedView style={styles.mainContainer}>
+      <View style={styles.header}>
+        <View style={styles.profilePicPlaceholder} />
+        <Text style={styles.logo}>Barlo</Text>
+        <Ionicons name="chatbubble-outline" size={24} color="black" />
+      </View>
 
-        <View style={styles.tabsContainer}>
-          <View style={styles.tabSelector}>
-            <View style={styles.tabItemWrapper}>
-              <Text style={[styles.tabText, styles.activeTabText]}>Featured</Text>
-              <View style={styles.activeTabIndicator} />
-            </View>
-            <View style={styles.tabItemWrapper}>
-              <Text style={styles.tabText}>For You</Text>
-            </View>
+      <View style={styles.tabsContainer}>
+        <View style={styles.tabSelector}>
+          <View style={styles.tabItemWrapper}>
+            <Text style={[styles.tabText, styles.activeTabText]}>Featured</Text>
+            <View style={styles.activeTabIndicator} />
           </View>
-          <View style={styles.tabBorder} />
+          <View style={styles.tabItemWrapper}>
+            <Text style={styles.tabText}>For You</Text>
+          </View>
         </View>
+        <View style={styles.tabBorder} />
+      </View>
 
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContentContainer}>
         <View style={styles.card}>
           <View style={styles.cardIcons}>
             <View style={[styles.iconContainer, { backgroundColor: '#FADBD8' }]}>
@@ -43,40 +43,42 @@ export default function HomeScreen() {
             </View>
           </View>
           <Text style={styles.cardDate}>March 31 - April 6</Text>
-          <ThemedText type="title" style={styles.cardTitle}>Last week's top trades!</ThemedText>
+          <ThemedText type="title" style={styles.cardTitle}>Last week's{`\n`}top trades!</ThemedText>
         </View>
 
         <View style={styles.liveSection}>
-          <ThemedText type="subtitle" style={styles.liveTitle}>Live Today, Apr 11</ThemedText>
-          <LiveListItem
-            title="Identity Refresh Playbook"
-            description="Landing page for GTM (go-to-market) strategy swap"
-            count={42}
-            userImages={2}
-          />
-          <LiveListItem
-            title="SoHo Mini-Shoot Collab"
-            description="Photo, styling, reels trade for social media content"
-            count={35}
-            userImages={3}
-          />
-          <LiveListItem
-            title="Brooklyn Pop-Up Squad"
-            description="Flyers, beats, and planning for community events"
-            count={97}
-            userImages={2}
-            icon={<View style={[styles.smallIconContainer, { backgroundColor: '#FADBD8' }]}><View style={[styles.smallIconShape, { backgroundColor: '#E74C3C' }]} /></View>}
-          />
-          <LiveListItem
-            title="Teach Me, I'll Build It"
-            description="Webflow lessons for podcast site build 😎"
-            count={85}
-            userImages={2}
-          />
+          <View style={styles.collaborationContainer}>
+            <ThemedText type="subtitle" style={styles.liveTitle}>Today's Collaborations, Apr 11</ThemedText>
+            <LiveListItem
+              title="Identity Refresh Playbook"
+              description="Landing page for GTM (go-to-market) strategy swap"
+              count={42}
+              userImages={2}
+            />
+            <LiveListItem
+              title="SoHo Mini-Shoot Collab"
+              description="Photo, styling, reels trade for social media content"
+              count={35}
+              userImages={3}
+            />
+            <LiveListItem
+              title="Brooklyn Pop-Up Squad"
+              description="Flyers, beats, and planning for community events"
+              count={97}
+              userImages={2}
+              icon={<View style={[styles.smallIconContainer, { backgroundColor: '#FADBD8' }]}><View style={[styles.smallIconShape, { backgroundColor: '#E74C3C' }]} /></View>}
+            />
+            <LiveListItem
+              title="Teach Me, I'll Build It"
+              description="Webflow lessons for podcast site build 😎"
+              count={85}
+              userImages={2}
+            />
+          </View>
         </View>
 
-      </ThemedView>
-    </ScrollView>
+      </ScrollView>
+    </ThemedView>
   );
 }
 
@@ -89,35 +91,32 @@ const LiveListItem = ({ title, description, count, userImages, icon }: { title: 
         ))}
       </View>
       <View style={styles.listItemText}>
-        <ThemedText type="defaultSemiBold">{title}</ThemedText>
+        <ThemedText type="defaultSemiBold" style={styles.listItemTitle}>{title}</ThemedText>
         <ThemedText type="default" style={styles.descriptionText}>{description}</ThemedText>
       </View>
     </View>
     <View style={styles.listItemCount}>
       <Ionicons name="caret-up" size={16} color="black" />
-      <ThemedText type="defaultSemiBold">{count}</ThemedText>
+      <ThemedText type="defaultSemiBold" style={styles.listItemCountText}>{count}</ThemedText>
     </View>
   </View>
 );
 
-
 const styles = StyleSheet.create({
-  outerContainer: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 15,
+    paddingTop: 55,
   },
-  container: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: '#F8F9FA',
+  scrollContentContainer: {
+    paddingBottom: 120
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 40,
-    paddingBottom: 15,
-    paddingHorizontal: 5,
+    marginBottom: 15,
   },
   profilePicPlaceholder: {
     width: 40,
@@ -155,20 +154,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E22FB',
   },
   card: {
-    backgroundColor: 'white',
-    borderRadius: 16,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 12,
     padding: 20,
     marginTop: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   cardIcons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   iconContainer: {
     width: 50,
@@ -211,34 +205,32 @@ const styles = StyleSheet.create({
   },
   cardDate: {
     color: '#6c757d',
-    fontSize: 14,
+    fontSize: 13,
     marginBottom: 5,
+    fontFamily: 'Manrope-Regular',
   },
   cardTitle: {
-
+    fontSize: 18,
     color: '#000',
+    lineHeight: 24,
+    fontFamily: 'Manrope-Bold',
   },
   liveSection: {
-    marginTop: 30,
+    marginTop: 20,
   },
   liveTitle: {
-
-    marginBottom: 15,
+    fontSize: 16,
     color: '#000',
+    paddingHorizontal: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
   },
   listItem: {
-    backgroundColor: 'white',
-    borderRadius: 12,
+    backgroundColor: '#F9FAFB',
     padding: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
   },
   listItemContent: {
     flexDirection: 'row',
@@ -249,6 +241,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginRight: 15,
     alignItems: 'center',
+    width: 60,
+    justifyContent: 'center',
   },
   userImagePlaceholder: {
     width: 35,
@@ -259,7 +253,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
   },
   userImageOverlap: {
-    marginLeft: -10,
+    marginLeft: -15,
   },
   smallIconContainer: {
     width: 35,
@@ -279,26 +273,42 @@ const styles = StyleSheet.create({
   listItemText: {
     flex: 1,
   },
+  listItemTitle: {
+    fontSize: 14,
+    fontFamily: 'Manrope-Bold',
+    marginBottom: 4,
+  },
   descriptionText: {
     color: '#6c757d',
     marginTop: 2,
+    fontSize: 12,
+    fontFamily: 'Manrope-Regular',
+    lineHeight: 15,
   },
   listItemCount: {
     alignItems: 'center',
   },
+  listItemCountText: {
+    fontSize: 12,
+  },
   tabBorder: {
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
-    width: '100%',
+    width: '120%',
+    left: -20
   },
   tabsContainer: {
     position: 'relative',
-    marginTop: 20,
-    width: '110%',
-    alignSelf: 'center',
+    width: '100%',
   },
   tabItemWrapper: {
     position: 'relative',
     paddingBottom: 10,
+  },
+  collaborationContainer: {
+    backgroundColor: '#F9FAFB',
+    borderRadius: 12,
+    marginTop: 20,
+    overflow: 'hidden',
   },
 });
