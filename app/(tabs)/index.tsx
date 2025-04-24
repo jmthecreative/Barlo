@@ -1,16 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Image } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Ionicons } from '@expo/vector-icons';
+import ChatBubbleIcon from '@/components/ChatBubbleIcon';
+import BarloLogo from '@/assets/svgs/BarloLogo';
 
 export default function HomeScreen() {
   return (
     <ThemedView style={styles.mainContainer}>
       <View style={styles.header}>
         <View style={styles.profilePicPlaceholder} />
-        <Text style={styles.logo}>Barlo</Text>
-        <Ionicons name="chatbubble-outline" size={24} color="black" />
+        <BarloLogo />
+        <ChatBubbleIcon />
       </View>
 
       <View style={styles.tabsContainer}>
@@ -28,22 +30,11 @@ export default function HomeScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContentContainer}>
         <View style={styles.card}>
-          <View style={styles.cardIcons}>
-            <View style={[styles.iconContainer, { backgroundColor: '#FADBD8' }]}>
-              <View style={[styles.iconInner, { backgroundColor: '#E74C3C' }]} />
-            </View>
-            <View style={[styles.iconContainer, { backgroundColor: '#FDEBD0' }]}>
-              <View style={[styles.iconInnerCircle, { borderColor: '#F39C12' }]} />
-            </View>
-            <View style={[styles.iconContainer, { backgroundColor: '#E8DAEF' }]}>
-              <View style={[styles.iconShape, { backgroundColor: '#8E44AD' }]} />
-            </View>
-            <View style={[styles.iconContainer, { backgroundColor: '#D1F2EB' }]}>
-              <View style={[styles.iconShapeDiamond, { backgroundColor: '#1ABC9C' }]} />
-            </View>
+          <Image source={require('@/assets/images/Frame.png')} style={styles.cardImage} />
+          <View style={styles.cardTextContainer}>
+            <Text style={styles.cardDate}>March 31 - April 6</Text>
+            <ThemedText type="title" style={styles.cardTitle}>Last week's{`\n`}top trades!</ThemedText>
           </View>
-          <Text style={styles.cardDate}>March 31 - April 6</Text>
-          <ThemedText type="title" style={styles.cardTitle}>Last week's{`\n`}top trades!</ThemedText>
         </View>
 
         <View style={styles.liveSection}>
@@ -66,12 +57,29 @@ export default function HomeScreen() {
               description="Flyers, beats, and planning for community events"
               count={97}
               userImages={2}
-              icon={<View style={[styles.smallIconContainer, { backgroundColor: '#FADBD8' }]}><View style={[styles.smallIconShape, { backgroundColor: '#E74C3C' }]} /></View>}
             />
             <LiveListItem
               title="Teach Me, I'll Build It"
               description="Webflow lessons for podcast site build 😎"
               count={85}
+              userImages={2}
+            />
+            <LiveListItem
+              title="Indie Film Crew Call"
+              description="Short film project seeking DP and sound mixer"
+              count={61}
+              userImages={2}
+            />
+            <LiveListItem
+              title="NFT Art Showcase"
+              description="Digital artists collaborating on a virtual gallery"
+              count={103}
+              userImages={2}
+            />
+            <LiveListItem
+              title="Music Production Jam"
+              description="Producers and vocalists creating tracks together"
+              count={77}
               userImages={2}
             />
           </View>
@@ -117,10 +125,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 15,
+    marginTop: 15,
   },
   profilePicPlaceholder: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 20,
     backgroundColor: '#A9A9A9',
   },
@@ -154,54 +163,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E22FB',
   },
   card: {
+    position: 'relative',
     backgroundColor: '#F9FAFB',
     borderRadius: 12,
-    padding: 20,
     marginTop: 20,
+    height: 148,
+    overflow: 'hidden',
   },
-  cardIcons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+  cardImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
-  iconContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconInner: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 4,
-    borderColor: '#E74C3C',
-    backgroundColor: '#FADBD8',
-  },
-  iconInnerCircle: {
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
-    borderWidth: 5,
-    borderColor: '#F39C12',
-    backgroundColor: 'transparent',
-  },
-  iconShape: {
-    width: 25,
-    height: 25,
-    borderRadius: 5,
-    transform: [{ rotate: '45deg' }],
-
-  },
-  iconShapeDiamond: {
-    width: 20,
-    height: 20,
-    transform: [{ rotate: '45deg' }],
-
-    borderWidth: 5,
-    borderColor: '#1ABC9C',
-    backgroundColor: '#D1F2EB',
+  cardTextContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
   cardDate: {
     color: '#6c757d',
