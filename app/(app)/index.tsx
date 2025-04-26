@@ -1,16 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, Image } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Image, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Ionicons } from '@expo/vector-icons';
 import ChatBubbleIcon from '@/components/ChatBubbleIcon';
 import BarloLogo from '@/assets/svgs/BarloLogo';
+import { useRouter } from 'expo-router';
 
-export default function HomeScreen() {
+const LiveListItem = ({ title, description, count, userImages, icon }: { title: string, description: string, count: number, userImages: number, icon?: React.ReactNode }) => (
+  <View style={styles.listItem}>
+    <View style={styles.listItemContent}>
+      <View style={styles.userImagesContainer}>
+        {icon ? icon : Array.from({ length: userImages }).map((_, index) => (
+          <View key={index} style={[styles.userImagePlaceholder, index > 0 && styles.userImageOverlap]} />
+        ))}
+      </View>
+      <View style={styles.listItemText}>
+        <ThemedText type="defaultSemiBold" style={styles.listItemTitle}>{title}</ThemedText>
+        <ThemedText type="default" style={styles.descriptionText}>{description}</ThemedText>
+      </View>
+    </View>
+    <View style={styles.listItemCount}>
+      <Ionicons name="caret-up" size={16} color="black" />
+      <ThemedText type="defaultSemiBold" style={styles.listItemCountText}>{count}</ThemedText>
+    </View>
+  </View>
+);
+
+export default function IndexScreen() {
+  const router = useRouter();
+
+  const navigateToProfile = () => {
+    router.push('/profile');
+  };
+
   return (
     <ThemedView style={styles.mainContainer}>
       <View style={styles.header}>
-        <View style={styles.profilePicPlaceholder} />
+        <Pressable onPress={navigateToProfile}>
+          <View style={styles.profilePicPlaceholder} />
+        </Pressable>
         <BarloLogo />
         <ChatBubbleIcon />
       </View>
@@ -84,48 +113,27 @@ export default function HomeScreen() {
             />
           </View>
         </View>
-
       </ScrollView>
     </ThemedView>
   );
 }
 
-const LiveListItem = ({ title, description, count, userImages, icon }: { title: string, description: string, count: number, userImages: number, icon?: React.ReactNode }) => (
-  <View style={styles.listItem}>
-    <View style={styles.listItemContent}>
-      <View style={styles.userImagesContainer}>
-        {icon ? icon : Array.from({ length: userImages }).map((_, index) => (
-          <View key={index} style={[styles.userImagePlaceholder, index > 0 && styles.userImageOverlap]} />
-        ))}
-      </View>
-      <View style={styles.listItemText}>
-        <ThemedText type="defaultSemiBold" style={styles.listItemTitle}>{title}</ThemedText>
-        <ThemedText type="default" style={styles.descriptionText}>{description}</ThemedText>
-      </View>
-    </View>
-    <View style={styles.listItemCount}>
-      <Ionicons name="caret-up" size={16} color="black" />
-      <ThemedText type="defaultSemiBold" style={styles.listItemCountText}>{count}</ThemedText>
-    </View>
-  </View>
-);
-
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 15,
-    paddingTop: 55,
   },
   scrollContentContainer: {
-    paddingBottom: 120
+    paddingBottom: 120,
+    paddingHorizontal: 15,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 15,
-    marginTop: 15,
+    marginTop: 55,
+    paddingHorizontal: 15,
   },
   profilePicPlaceholder: {
     width: 32,
@@ -137,6 +145,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     fontFamily: 'System',
+  },
+  tabsContainer: {
+    position: 'relative',
+    width: '100%',
+    paddingHorizontal: 15,
   },
   tabSelector: {
     flexDirection: 'row',
@@ -279,11 +292,6 @@ const styles = StyleSheet.create({
   tabBorder: {
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
-    width: '120%',
-    left: -20
-  },
-  tabsContainer: {
-    position: 'relative',
     width: '100%',
   },
   tabItemWrapper: {
