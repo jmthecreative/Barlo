@@ -3,11 +3,10 @@ import { StyleSheet, View, Text } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 
-export default function CommunityScreen() {
+export default function SearchScreen() {
     return (
         <ThemedView style={styles.container}>
-            <ThemedText type="title">Community</ThemedText>
-            {/* TODO: Implement Community Screen UI */}
+            <ThemedText type="title">Search</ThemedText>
         </ThemedView>
     );
 }
